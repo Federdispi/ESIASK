@@ -8,31 +8,10 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
   bool obscurePassword = true;
-
-  final subjects = <String>["GEIPI", "IT", "MDD", "Robotique", "AGROSUP"];
-  String subjectValue = "GEIPI";
-  final years = <String>[
-    "1ère année",
-    "2ème année",
-    "3ème année",
-    "4ème année",
-    "5ème année",
-    "OG"
-  ];
-  String yearValue = "1ère année";
-  final specialities = <String, List>{
-    "GEIPI": ["Aucune"],
-    "IT": ["Aucune", "ILC", "SE", "SQR"],
-    "MDD": ["Aucune"],
-    "Robotique": ["Aucune"],
-    "AGROSUP": ["Aucune"],
-  };
-  String specialityValue = "Aucune";
 
   @override
   Widget build(BuildContext context) {
@@ -51,64 +30,8 @@ class _SignUpState extends State<SignUp> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                InkWell(
-                  borderRadius: BorderRadius.circular(300),
-                  onTap: () {},
-                  child: const CircleAvatar(
-                    radius: 75,
-                    backgroundColor: Colors.white,
-                    child: CircleAvatar(
-                      radius: 70,
-                      backgroundColor: Colors.blue,
-                      child: Center(
-                        child: Icon(
-                          Icons.person_add_alt_outlined,
-                          size: 50,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 40,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 40.0),
-                  child: TextField(
-                    controller: nameController,
-                    textInputAction: TextInputAction.next,
-                    textCapitalization: TextCapitalization.words,
-                    decoration: const InputDecoration(
-                      labelText: "Nom",
-                      prefixIcon: Icon(
-                        Icons.person_outline,
-                        color: Colors.white,
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.white,
-                          width: 2,
-                        ),
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.white,
-                          width: 1,
-                        ),
-                        borderRadius: BorderRadius.all(Radius.circular(12)),
-                      ),
-                      labelStyle: TextStyle(color: Colors.white),
-                    ),
-                    cursorColor: Theme.of(context).primaryColor,
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                SizedBox(
+                  width: 340,
                   child: TextField(
                     controller: emailController,
                     textInputAction: TextInputAction.next,
@@ -141,8 +64,8 @@ class _SignUpState extends State<SignUp> {
                 const SizedBox(
                   height: 20,
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                SizedBox(
+                  width: 340,
                   child: TextField(
                     controller: passwordController,
                     enableSuggestions: false,
@@ -184,106 +107,6 @@ class _SignUpState extends State<SignUp> {
                   ),
                 ),
                 const SizedBox(
-                  height: 20,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 40),
-                  child: Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 15, vertical: 3),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(width: 1, color: Colors.white),
-                    ),
-                    child: DropdownButton(
-                      items: subjects
-                          .map((e) => DropdownMenuItem(
-                                value: e,
-                                child: Text(e),
-                              ))
-                          .toList(),
-                      onChanged: (value) => setState(() {
-                        if (value != subjectValue) {
-                          specialityValue = "Aucune";
-                        }
-                        subjectValue = value!;
-                      }),
-                      value: subjectValue,
-                      borderRadius: BorderRadius.circular(12),
-                      dropdownColor: Colors.blue[600],
-                      underline: Container(
-                        height: 0,
-                      ),
-                      elevation: 0,
-                      isExpanded: true,
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 40),
-                  child: Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 15, vertical: 3),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(width: 1, color: Colors.white),
-                    ),
-                    child: DropdownButton(
-                      items: specialities[subjectValue]!
-                          .toList()
-                          .map((e) => DropdownMenuItem(
-                                value: e.toString(),
-                                child: Text(e),
-                              ))
-                          .toList(),
-                      onChanged: (value) =>
-                          setState(() => specialityValue = value!),
-                      value: specialityValue,
-                      borderRadius: BorderRadius.circular(12),
-                      dropdownColor: Colors.blue[600],
-                      underline: Container(
-                        height: 0,
-                      ),
-                      elevation: 0,
-                      isExpanded: true,
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 40),
-                  child: Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 15, vertical: 3),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(width: 1, color: Colors.white),
-                    ),
-                    child: DropdownButton(
-                      items: years
-                          .map((e) => DropdownMenuItem(
-                                value: e,
-                                child: Text(e),
-                              ))
-                          .toList(),
-                      onChanged: (value) => setState(() => yearValue = value!),
-                      value: yearValue,
-                      borderRadius: BorderRadius.circular(12),
-                      dropdownColor: Colors.blue[600],
-                      underline: Container(
-                        height: 0,
-                      ),
-                      elevation: 0,
-                      isExpanded: true,
-                    ),
-                  ),
-                ),
-                const SizedBox(
                   height: 40,
                 ),
                 ElevatedButton(
@@ -294,8 +117,7 @@ class _SignUpState extends State<SignUp> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 75, vertical: 15),
+                    fixedSize: const Size(340, 55),
                   ),
                   child: const Text(
                     "Créer le compte",
@@ -304,6 +126,67 @@ class _SignUpState extends State<SignUp> {
                         fontWeight: FontWeight.bold,
                         color: Colors.blue),
                   ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Stack(
+                  alignment: AlignmentDirectional.center,
+                  children: [
+                    const Divider(
+                      thickness: 2,
+                      indent: 35,
+                      endIndent: 35,
+                    ),
+                    Container(
+                      color: Theme.of(context).backgroundColor,
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: const Text(
+                        'ou',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        fixedSize: const Size(150, 90),
+                      ),
+                      child: Image.asset(
+                        'assets/images/google_logo.png',
+                        fit: BoxFit.cover,
+                        width: 50,
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue[800],
+                        fixedSize: const Size(150, 90),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      child: const Icon(
+                        Icons.facebook,
+                        size: 45,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),

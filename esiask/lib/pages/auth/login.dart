@@ -1,3 +1,4 @@
+import 'package:esiask/models/logo.dart';
 import 'package:esiask/pages/auth/register.dart';
 import 'package:flutter/material.dart';
 
@@ -24,30 +25,14 @@ class _LogInState extends State<LogIn> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Text(
-                "ESIASK",
-                style: TextStyle(
-                  fontSize: 48,
-                  fontWeight: FontWeight.bold,
-                  shadows: <Shadow>[
-                    Shadow(
-                      offset: Offset(0, 5),
-                      blurRadius: 10.0,
-                      color: Color.fromARGB(255, 0, 0, 0),
-                    ),
-                    Shadow(
-                      offset: Offset(0, 5),
-                      blurRadius: 18.0,
-                      color: Colors.blue,
-                    ),
-                  ],
-                ),
+              const Logo(
+                fontSize: 48,
               ),
               const SizedBox(
                 height: 100,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 40.0),
+              SizedBox(
+                width: 340,
                 child: TextField(
                   controller: emailController,
                   textInputAction: TextInputAction.next,
@@ -80,8 +65,8 @@ class _LogInState extends State<LogIn> {
               const SizedBox(
                 height: 20,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 40.0),
+              SizedBox(
+                width: 340,
                 child: TextField(
                   controller: passwordController,
                   enableSuggestions: false,
@@ -117,7 +102,7 @@ class _LogInState extends State<LogIn> {
                       ),
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                     ),
-                    labelStyle: TextStyle(color: Colors.white),
+                    labelStyle: const TextStyle(color: Colors.white),
                   ),
                   cursorColor: Colors.white,
                 ),
@@ -133,8 +118,7 @@ class _LogInState extends State<LogIn> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 100, vertical: 15),
+                  fixedSize: const Size(340, 55),
                 ),
                 child: const Text(
                   "Connexion",
@@ -143,6 +127,27 @@ class _LogInState extends State<LogIn> {
                       fontWeight: FontWeight.bold,
                       color: Colors.blue),
                 ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  InkWell(
+                    onTap: () {},
+                    child: const Text(
+                      "Mot de passe oublié",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w900,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 40,
+                  ),
+                ],
               ),
               const SizedBox(
                 height: 20,
