@@ -1,3 +1,5 @@
+import 'package:esiask/pages/application/application.dart';
+import 'package:esiask/pages/auth/complete.dart';
 import 'package:esiask/pages/auth/login.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +19,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.white,
         backgroundColor: Colors.blue,
       ),
-      home: const LogIn(),
+      home: const Application(),
     );
   }
 }
