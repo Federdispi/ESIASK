@@ -1,3 +1,4 @@
+import 'package:esiask/controllers/auth_controller.dart';
 import 'package:flutter/material.dart';
 
 class SignUp extends StatefulWidget {
@@ -12,6 +13,14 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController passwordController = TextEditingController();
 
   bool obscurePassword = true;
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +119,11 @@ class _SignUpState extends State<SignUp> {
                   height: 40,
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    registerWithEmailAndPassword(emailController.text.trim(),
+                        passwordController.text.trim());
+                    Navigator.of(context).pop();
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
                     elevation: 10,

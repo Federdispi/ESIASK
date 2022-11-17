@@ -1,3 +1,4 @@
+import 'package:esiask/controllers/auth_controller.dart';
 import 'package:flutter/material.dart';
 
 class Profile extends StatelessWidget {
@@ -12,8 +13,9 @@ class Profile extends StatelessWidget {
         elevation: 0,
         backgroundColor: Colors.transparent,
       ),
-      body: const Center(
-        child: Text('Profile'),
+      body: Center(
+        child: ElevatedButton(
+            onPressed: () => signOut(), child: const Text("LogOut")),
       ),
     );
   }
