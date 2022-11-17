@@ -10,7 +10,7 @@ class Complete extends StatefulWidget {
 class _CompleteState extends State<Complete> {
   final TextEditingController nameController = TextEditingController();
 
-  final subjects = <String>["GEIPI", "IT", "MDD", "Robotique", "AGROSUP"];
+  final subjects = <String>["GEIPI", "IT", "MDD", "Robotique"];
   String subjectValue = "GEIPI";
 
   final years = <String>[

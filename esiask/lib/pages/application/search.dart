@@ -20,7 +20,7 @@ class _SearchState extends State<Search> {
           height: 40,
           child: TextField(
             controller: searchController,
-            textInputAction: TextInputAction.next,
+            textInputAction: TextInputAction.search,
             textCapitalization: TextCapitalization.none,
             decoration: const InputDecoration(
               contentPadding: EdgeInsets.all(12),
