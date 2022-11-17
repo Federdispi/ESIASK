@@ -1,6 +1,8 @@
 import 'package:esiask/models/logo.dart';
 import 'package:esiask/pages/auth/register.dart';
+import 'package:esiask/pages/auth/reset_password.dart';
 import 'package:flutter/material.dart';
+import 'package:esiask/controllers/auth_controller.dart';
 
 class LogIn extends StatefulWidget {
   const LogIn({super.key});
@@ -14,6 +16,14 @@ class _LogInState extends State<LogIn> {
   final TextEditingController passwordController = TextEditingController();
 
   bool obscurePassword = true;
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +121,10 @@ class _LogInState extends State<LogIn> {
                 height: 40,
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  signInWithEmailAndPassword(emailController.text.trim(),
+                      passwordController.text.trim());
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
                   elevation: 10,
@@ -135,7 +148,10 @@ class _LogInState extends State<LogIn> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const ResetPassword()));
+                    },
                     child: const Text(
                       "Mot de passe oublié",
                       style: TextStyle(

@@ -33,6 +33,12 @@ class _CompleteState extends State<Complete> {
   String specialityValue = "Aucune";
 
   @override
+  void dispose() {
+    nameController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
