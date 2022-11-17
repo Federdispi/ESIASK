@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "761754627847",
+    "project_id": "askesirem",
+    "storage_bucket": "askesirem.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:761754627847:android:af40101a0ec11f31e8dfa2",
+        "android_client_info": {
+          "package_name": "com.federdispi.esiask"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "761754627847-jd7rhevl8gi8v6pevhhe2i3dcvsb0203.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.federdispi.esiask",
+            "certificate_hash": "5915086396e3720f5c7891de9ec2ed95808660ae"
+          }
+        },
+        {
+          "client_id": "761754627847-l38lvii9lccgtj8kgo1v6p5v80fqd5oj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbhxFcK1iuWZ0DPc1jgoZDQhgGNqvAa_k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "761754627847-l38lvii9lccgtj8kgo1v6p5v80fqd5oj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
