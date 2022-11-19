@@ -2,6 +2,7 @@ import 'package:esiask/pages/auth/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:esiask/pages/application/application.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,9 +22,6 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.white,
         backgroundColor: Colors.blue,
       ),
-<<<<<<< Updated upstream
-      home: const LogIn(),
-=======
       home: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
@@ -34,7 +32,6 @@ class MyApp extends StatelessWidget {
           }
         },
       ),
->>>>>>> Stashed changes
     );
   }
 }
