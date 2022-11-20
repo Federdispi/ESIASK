@@ -6,6 +6,8 @@
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Photo Library Access Warnings</string>
 	<key>CFBundleDisplayName</key>
 	<string>Esiask</string>
 	<key>CFBundleExecutable</key>

@@ -1,6 +1,13 @@
+
+
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../controllers/firebase.dart';
+
+enum ImageSourceType { gallery, camera }
 
 class Complete extends StatefulWidget {
   const Complete({super.key});
@@ -14,6 +21,11 @@ class _CompleteState extends State<Complete> {
 
   final subjects = <String>["GEIPI", "IT", "MDD", "Robotique"];
   String subjectValue = "GEIPI";
+
+
+late File imageFile;
+
+  
 
   final years = <String>[
     "1ère année",
@@ -56,18 +68,20 @@ class _CompleteState extends State<Complete> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              
               InkWell(
+                
                 borderRadius: BorderRadius.circular(300),
+
+
                 //faire get image local(gallerie de photo)
                 onTap: () {
-
-                  
-
-
+                  _getFromGallery();
                 },
-                child: const CircleAvatar(
+                 child: const CircleAvatar(
                   radius: 75,
                   backgroundColor: Colors.white,
+                
 
                   //remplacer CircleAvatar par backgroundimage?
                   child: CircleAvatar(
@@ -80,12 +94,13 @@ class _CompleteState extends State<Complete> {
                         color: Colors.white,
                       ),
                     ),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 40,
-              ),
+
+               
+                ))),
+
+                
+              
+            
               SizedBox(
                 width: 340,
                 child: TextField(
@@ -244,4 +259,23 @@ class _CompleteState extends State<Complete> {
       ),
     );
   }
+
+
+/// Get from gallery
+  _getFromGallery() async {
+    PickedFile? pickedFile = await ImagePicker().getImage(
+      source: ImageSource.gallery,
+      maxWidth: 1800,
+      maxHeight: 1800,
+    );
+    if (pickedFile != null) {
+     
+        imageFile = File(pickedFile.path);
+      
+    }
+  }
+
+
 }
+
+
