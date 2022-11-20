@@ -10,6 +10,8 @@ class Profile extends StatelessWidget {
 
 final user = FirebaseAuth.instance.currentUser!;
 
+
+
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
@@ -25,14 +27,13 @@ children: [
 ElevatedButton(
             onPressed: () => signOut(), child: const Text("LogOut")
             ),
-Text(
-  'Name${user.displayName!}',
-  style:TextStyle(color:Colors.white,fontSize:16)
-),
+
+            
 Text(
   'Email${user.email!}',
   style:TextStyle(color:Colors.white,fontSize:16)
-)
+),
+
 
           
 
