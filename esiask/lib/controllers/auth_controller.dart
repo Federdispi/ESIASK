@@ -3,7 +3,12 @@ import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
+
+
+
+
 
 Future<void> signInWithEmailAndPassword(String email, String password) async {
   try {
@@ -13,6 +18,9 @@ Future<void> signInWithEmailAndPassword(String email, String password) async {
     print(e);
   }
 }
+
+
+
 final fbLogin = FacebookLogin();
 Future signInFB() async {
   final FacebookLoginResult result = await fbLogin.logIn(["email"]);
@@ -39,7 +47,7 @@ Future<void> signOut() async {
 
 
 
-/*
+
 
 Future<void> signInWithGoogle() async {
   // Trigger the authentication flow
@@ -61,7 +69,7 @@ Future<void> signInWithGoogle() async {
    on FirebaseAuthException catch (e) {
     print(e);
   }
-}*/
+}
 
 Future<void> signInWithFacebook() async {
   // Trigger the sign-in flow

@@ -1,4 +1,5 @@
 import 'package:esiask/controllers/auth_controller.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Profile extends StatelessWidget {
@@ -6,6 +7,9 @@ class Profile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+final user = FirebaseAuth.instance.currentUser!;
+
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
@@ -13,10 +17,29 @@ class Profile extends StatelessWidget {
         elevation: 0,
         backgroundColor: Colors.transparent,
       ),
-      body: Center(
-        child: ElevatedButton(
-            onPressed: () => signOut(), child: const Text("LogOut")),
-      ),
+      
+      body:Container(alignment: Alignment.center,color:Colors.black,child:Column(
+mainAxisAlignment: MainAxisAlignment.center,
+children: [
+
+ElevatedButton(
+            onPressed: () => signOut(), child: const Text("LogOut")
+            ),
+Text(
+  'Name${user.displayName!}',
+  style:TextStyle(color:Colors.white,fontSize:16)
+),
+Text(
+  'Email${user.email!}',
+  style:TextStyle(color:Colors.white,fontSize:16)
+)
+
+          
+
+],
+
+
+      ))
     );
   }
 }

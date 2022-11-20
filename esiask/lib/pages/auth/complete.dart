@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../controllers/firebase.dart';
+
 class Complete extends StatefulWidget {
   const Complete({super.key});
 
@@ -205,7 +207,13 @@ class _CompleteState extends State<Complete> {
                 height: 40,
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+
+
+                userSetup(nameController.text.trim(),specialityValue,yearValue,subjectValue);
+
+
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
                   elevation: 10,
