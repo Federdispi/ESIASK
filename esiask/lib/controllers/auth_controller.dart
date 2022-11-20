@@ -48,7 +48,6 @@ Future<void> signOut() async {
 
 
 
-
 Future<void> signInWithGoogle() async {
   // Trigger the authentication flow
   final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();

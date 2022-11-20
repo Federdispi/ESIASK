@@ -58,10 +58,18 @@ class _CompleteState extends State<Complete> {
             children: [
               InkWell(
                 borderRadius: BorderRadius.circular(300),
-                onTap: () {},
+                //faire get image local(gallerie de photo)
+                onTap: () {
+
+                  
+
+
+                },
                 child: const CircleAvatar(
                   radius: 75,
                   backgroundColor: Colors.white,
+
+                  //remplacer CircleAvatar par backgroundimage?
                   child: CircleAvatar(
                     radius: 70,
                     backgroundColor: Colors.blue,
