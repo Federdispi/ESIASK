@@ -1,11 +1,18 @@
-
-
 import 'dart:io';
-
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'package:path/path.dart';
+
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 import '../../controllers/firebase.dart';
+import '../application/application.dart';
 
 enum ImageSourceType { gallery, camera }
 
@@ -17,15 +24,19 @@ class Complete extends StatefulWidget {
 }
 
 class _CompleteState extends State<Complete> {
+   File? imageFile;
+ final ImagePicker _picker = ImagePicker();
+
   final TextEditingController nameController = TextEditingController();
 
   final subjects = <String>["GEIPI", "IT", "MDD", "Robotique"];
   String subjectValue = "GEIPI";
 
 
-late File imageFile;
+ 
 
-  
+  firebase_storage.FirebaseStorage storage = firebase_storage.FirebaseStorage.instance;
+
 
   final years = <String>[
     "1ère année",
@@ -76,27 +87,35 @@ late File imageFile;
 
                 //faire get image local(gallerie de photo)
                 onTap: () {
-                  _getFromGallery();
+                  imgFromGallery();
                 },
-                 child: const CircleAvatar(
-                  radius: 75,
-                  backgroundColor: Colors.white,
-                
-
-                  //remplacer CircleAvatar par backgroundimage?
                   child: CircleAvatar(
-                    radius: 70,
-                    backgroundColor: Colors.blue,
-                    child: Center(
-                      child: Icon(
-                        Icons.person_add_alt_outlined,
-                        size: 50,
-                        color: Colors.white,
-                      ),
-                    ),
-
+                radius: 55,
+                backgroundColor: const Color(0xffFDCF09),
+                child: imageFile != null
+                    ? ClipRRect(
+                        borderRadius: BorderRadius.circular(50),
+                        child: Image.file(
+                          imageFile!,
+                          width: 100,
+                          height: 100,
+                          fit: BoxFit.fitHeight,
+                        ),
+                      )
                
-                ))),
+                :Container(
+                        decoration: BoxDecoration(
+                            color: Colors.grey[200],
+                            borderRadius: BorderRadius.circular(50)),
+                        width: 100,
+                        height: 100,
+                        child: const Icon(
+                          Icons.person_add_alt_outlined,
+                          size: 50,
+                        color: Colors.white,
+                        ),
+                      ),
+                )),
 
                 
               
@@ -232,9 +251,14 @@ late File imageFile;
               ElevatedButton(
                 onPressed: () {
 
+               
+                userSetup(nameController.text.trim(),specialityValue,yearValue,subjectValue,imageFile!);
 
-                userSetup(nameController.text.trim(),specialityValue,yearValue,subjectValue);
+                //pour l'instant aller dans application.dart, 
+                //changer pour que SI UTILISATEUR CONNECTE AVEC GOOGLE OU FACEBOOK, PAS BESOIN DE VERIF AVEC EMAIL//
 
+                Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const Application()));
 
                 },
                 style: ElevatedButton.styleFrom(
@@ -262,18 +286,19 @@ late File imageFile;
 
 
 /// Get from gallery
-  _getFromGallery() async {
-    PickedFile? pickedFile = await ImagePicker().getImage(
-      source: ImageSource.gallery,
-      maxWidth: 1800,
-      maxHeight: 1800,
-    );
-    if (pickedFile != null) {
-     
+  Future imgFromGallery() async {
+    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      if (pickedFile != null) {
         imageFile = File(pickedFile.path);
-      
-    }
+      } else {
+        print('No image selected.');
+      }
+    });
   }
+
+   
 
 
 }
