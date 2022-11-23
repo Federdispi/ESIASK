@@ -17,26 +17,25 @@ import '../application/application.dart';
 enum ImageSourceType { gallery, camera }
 
 class Complete extends StatefulWidget {
-  const Complete({super.key});
-
+  Complete({super.key, required this.value});
+  String value;
   @override
   State<Complete> createState() => _CompleteState();
 }
 
 class _CompleteState extends State<Complete> {
-   File? imageFile;
- final ImagePicker _picker = ImagePicker();
+  String signupvalue = "base";
+
+  File? imageFile;
+  final ImagePicker _picker = ImagePicker();
 
   final TextEditingController nameController = TextEditingController();
 
   final subjects = <String>["GEIPI", "IT", "MDD", "Robotique"];
   String subjectValue = "GEIPI";
 
-
- 
-
-  firebase_storage.FirebaseStorage storage = firebase_storage.FirebaseStorage.instance;
-
+  firebase_storage.FirebaseStorage storage =
+      firebase_storage.FirebaseStorage.instance;
 
   final years = <String>[
     "1ère année",
@@ -79,47 +78,39 @@ class _CompleteState extends State<Complete> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              
               InkWell(
-                
-                borderRadius: BorderRadius.circular(300),
+                  borderRadius: BorderRadius.circular(300),
 
-
-                //faire get image local(gallerie de photo)
-                onTap: () {
-                  imgFromGallery();
-                },
+                  //faire get image local(gallerie de photo)
+                  onTap: () {
+                    imgFromGallery();
+                  },
                   child: CircleAvatar(
-                radius: 55,
-                backgroundColor: const Color(0xffFDCF09),
-                child: imageFile != null
-                    ? ClipRRect(
-                        borderRadius: BorderRadius.circular(50),
-                        child: Image.file(
-                          imageFile!,
-                          width: 100,
-                          height: 100,
-                          fit: BoxFit.fitHeight,
-                        ),
-                      )
-               
-                :Container(
-                        decoration: BoxDecoration(
-                            color: Colors.grey[200],
-                            borderRadius: BorderRadius.circular(50)),
-                        width: 100,
-                        height: 100,
-                        child: const Icon(
-                          Icons.person_add_alt_outlined,
-                          size: 50,
-                        color: Colors.white,
-                        ),
-                      ),
-                )),
-
-                
-              
-            
+                    radius: 55,
+                    backgroundColor: const Color(0xffFDCF09),
+                    child: imageFile != null
+                        ? ClipRRect(
+                            borderRadius: BorderRadius.circular(50),
+                            child: Image.file(
+                              imageFile!,
+                              width: 100,
+                              height: 100,
+                              fit: BoxFit.fitHeight,
+                            ),
+                          )
+                        : Container(
+                            decoration: BoxDecoration(
+                                color: Colors.grey[200],
+                                borderRadius: BorderRadius.circular(50)),
+                            width: 100,
+                            height: 100,
+                            child: const Icon(
+                              Icons.person_add_alt_outlined,
+                              size: 50,
+                              color: Colors.white,
+                            ),
+                          ),
+                  )),
               SizedBox(
                 width: 340,
                 child: TextField(
@@ -250,16 +241,19 @@ class _CompleteState extends State<Complete> {
               ),
               ElevatedButton(
                 onPressed: () {
+                  if (widget.value == "google") {
+                    signupGOOGLE(context, nameController.text.trim(),
+                        specialityValue, yearValue, subjectValue, imageFile!);
+                  } else {
+                    userSetup(nameController.text.trim(), specialityValue,
+                        yearValue, subjectValue, imageFile!);
+                  }
 
-               
-                userSetup(nameController.text.trim(),specialityValue,yearValue,subjectValue,imageFile!);
+                  //pour l'instant aller dans application.dart,
+                  //changer pour que SI UTILISATEUR CONNECTE AVEC GOOGLE OU FACEBOOK, PAS BESOIN DE VERIF AVEC EMAIL//
 
-                //pour l'instant aller dans application.dart, 
-                //changer pour que SI UTILISATEUR CONNECTE AVEC GOOGLE OU FACEBOOK, PAS BESOIN DE VERIF AVEC EMAIL//
-
-                Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const Application()));
-
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const Application()));
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
@@ -284,8 +278,7 @@ class _CompleteState extends State<Complete> {
     );
   }
 
-
-/// Get from gallery
+  /// Get from gallery
   Future imgFromGallery() async {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
 
@@ -297,10 +290,4 @@ class _CompleteState extends State<Complete> {
       }
     });
   }
-
-   
-
-
 }
-
-

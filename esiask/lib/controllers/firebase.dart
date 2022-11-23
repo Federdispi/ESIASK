@@ -12,11 +12,12 @@ import 'package:path/path.dart';
 import '../pages/auth/complete.dart';
 
 final FirebaseAuth auth = FirebaseAuth.instance;
+CollectionReference users = FirebaseFirestore.instance.collection('Users');
 
 Future<void> userSetup(String username, String specialite, String yearvalue,
     String subject, File imgFile) async {
   //for User informations storage
-  CollectionReference users = FirebaseFirestore.instance.collection('Users');
+
   String uid = auth.currentUser!.uid.toString();
   String email = auth.currentUser!.email.toString();
 
@@ -36,11 +37,13 @@ Future<void> userSetup(String username, String specialite, String yearvalue,
     'subject': subject,
     'uid': uid,
     'email': email,
+    'register_type': "address+password",
   });
   return;
 }
 
-Future<void> signupGOOGLE(BuildContext context) async {
+Future<void> signupGOOGLE(BuildContext context, String username,
+    String specialite, String yearvalue, String subject, File imgFile) async {
   final GoogleSignIn googleSignIn = GoogleSignIn();
   final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
   if (googleSignInAccount != null) {
@@ -54,9 +57,30 @@ Future<void> signupGOOGLE(BuildContext context) async {
     UserCredential result = await auth.signInWithCredential(authCredential);
     User? user = result.user;
 
+    String? photo = "";
+    String? Username_ = "";
+
+    if (imgFile == null) {
+      photo = user?.photoURL;
+    }
+
+    if (username == "" || username == null) {
+      Username_ = user?.displayName;
+    } else {
+      Username_ = username;
+    }
+
     if (result != null) {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => const Complete()));
+      users.add({
+        'uid': user?.uid,
+        'email': user?.email,
+        'photoURL': photo,
+        'username': Username_,
+        'specialite': specialite,
+        'yearvalue': yearvalue,
+        'subject': subject,
+        'register_type': "google"
+      });
     } // if result not null we simply call the MaterialpageRoute,
     // for go to the HomePage screen
   }

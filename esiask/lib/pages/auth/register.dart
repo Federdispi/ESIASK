@@ -131,7 +131,7 @@ class _SignUpState extends State<SignUp> {
                     registerWithEmailAndPassword(emailController.text.trim(),
                         passwordController.text.trim());
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const Complete()));
+                        builder: (context) => Complete(value: "")));
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
@@ -181,7 +181,11 @@ class _SignUpState extends State<SignUp> {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        signupGOOGLE(context);
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    Complete(value: "google")));
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.white,

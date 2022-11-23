@@ -42,53 +42,6 @@ Future<void> signOut() async {
   await FirebaseAuth.instance.signOut();
 }
 
-Future<void> signInWithGoogle() async {
-  // Trigger the authentication flow
-  final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-
-  // Obtain the auth details from the request
-  final GoogleSignInAuthentication? googleAuth =
-      await googleUser?.authentication;
-
-  // Create a new credential
-  final credential = GoogleAuthProvider.credential(
-    accessToken: googleAuth?.accessToken,
-    idToken: googleAuth?.idToken,
-  );
-
-  // Once signed in, return the UserCredential
-  try {
-    await FirebaseAuth.instance.signInWithCredential(credential);
-  } on FirebaseAuthException catch (e) {
-    print(e);
-  }
-}
-
-// creating firebase instance
-final FirebaseAuth auth = FirebaseAuth.instance;
-
-Future<void> signup(BuildContext context) async {
-  final GoogleSignIn googleSignIn = GoogleSignIn();
-  final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
-  if (googleSignInAccount != null) {
-    final GoogleSignInAuthentication googleSignInAuthentication =
-        await googleSignInAccount.authentication;
-    final AuthCredential authCredential = GoogleAuthProvider.credential(
-        idToken: googleSignInAuthentication.idToken,
-        accessToken: googleSignInAuthentication.accessToken);
-
-    // Getting users credential
-    UserCredential result = await auth.signInWithCredential(authCredential);
-    User? user = result.user;
-
-    if (result != null) {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => const Complete()));
-    } // if result not null we simply call the MaterialpageRoute,
-    // for go to the HomePage screen
-  }
-}
-
 Future<void> signInWithFacebook() async {
   // Trigger the sign-in flow
   final LoginResult loginResult = await FacebookAuth.instance.login();
