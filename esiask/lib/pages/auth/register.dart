@@ -1,4 +1,5 @@
 import 'package:esiask/controllers/auth_controller.dart';
+import 'package:esiask/controllers/firebase.dart';
 import 'package:esiask/main.dart';
 import 'package:esiask/pages/auth/complete.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,6 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
-
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -130,8 +130,8 @@ class _SignUpState extends State<SignUp> {
                   onPressed: () {
                     registerWithEmailAndPassword(emailController.text.trim(),
                         passwordController.text.trim());
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const Complete()));
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const Complete()));
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
@@ -181,11 +181,7 @@ class _SignUpState extends State<SignUp> {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-
-
-                          signInWithGoogle();
-
-
+                        signupGOOGLE(context);
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.white,
@@ -202,15 +198,11 @@ class _SignUpState extends State<SignUp> {
                     ),
                     ElevatedButton(
                       onPressed: () {
+                        signInWithFacebook();
 
-
-signInWithFacebook();
-                            
-                            /*signInFB().whenComplete(() {
+                        /*signInFB().whenComplete(() {
                              Navigator.of(context).push(MaterialPageRoute(builder: (context)=>Complete()));
                             },); */
-
-
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue[800],
