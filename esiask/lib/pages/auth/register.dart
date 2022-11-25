@@ -9,6 +9,8 @@ import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
+import 'email_confirm.dart';
+
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
 
@@ -131,7 +133,7 @@ class _SignUpState extends State<SignUp> {
                     registerWithEmailAndPassword(emailController.text.trim(),
                         passwordController.text.trim());
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => Complete(value: "")));
+                        builder: (context) => const VerifyEmailPage()));
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,

@@ -245,12 +245,10 @@ class _CompleteState extends State<Complete> {
                     signupGOOGLE(context, nameController.text.trim(),
                         specialityValue, yearValue, subjectValue, imageFile!);
                   } else {
+                    print("HAHAHAHAHAHHAHAAHHQSHDKJQSHDKJQSHD");
                     userSetup(nameController.text.trim(), specialityValue,
                         yearValue, subjectValue, imageFile!);
                   }
-
-                  //pour l'instant aller dans application.dart,
-                  //changer pour que SI UTILISATEUR CONNECTE AVEC GOOGLE OU FACEBOOK, PAS BESOIN DE VERIF AVEC EMAIL//
 
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => const Application()));

@@ -57,3 +57,8 @@ Future<void> signInWithFacebook() async {
     print(e);
   }
 }
+
+Future<void> sendEmailVerification_() async {
+  final user = FirebaseAuth.instance.currentUser!;
+  await user.sendEmailVerification();
+}
