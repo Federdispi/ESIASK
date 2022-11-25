@@ -245,7 +245,6 @@ class _CompleteState extends State<Complete> {
                     signupGOOGLE(context, nameController.text.trim(),
                         specialityValue, yearValue, subjectValue, imageFile!);
                   } else {
-                    print("HAHAHAHAHAHHAHAAHHQSHDKJQSHDKJQSHD");
                     userSetup(nameController.text.trim(), specialityValue,
                         yearValue, subjectValue, imageFile!);
                   }
