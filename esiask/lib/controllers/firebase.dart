@@ -70,6 +70,17 @@ Future<void> signupGOOGLE(BuildContext context, String username,
       Username_ = username;
     }
 
+
+    //for image storage
+  String? fileName = user?.uid;
+  FirebaseStorage storage = FirebaseStorage.instance;
+  Reference ref = storage.ref().child('Users_Icons/$fileName' '.png');
+  UploadTask uploadTask = ref.putFile(imgFile);
+  uploadTask.then((res) {
+    res.ref.getDownloadURL();
+  });
+
+
     if (result != null) {
       users.add({
         'uid': user?.uid,
@@ -84,4 +95,19 @@ Future<void> signupGOOGLE(BuildContext context, String username,
     } // if result not null we simply call the MaterialpageRoute,
     // for go to the HomePage screen
   }
+}
+
+String? downloadURL;
+
+Future<String?> getData(String uid) async{
+// Create a storage reference from our app
+final storageRef = FirebaseStorage.instance.ref();
+
+// Create a reference with an initial file path and name
+final pathReference = storageRef.child("User_Icons").child('$uid.png');
+
+var imgURL = await pathReference.getDownloadURL();
+
+return imgURL;
+
 }

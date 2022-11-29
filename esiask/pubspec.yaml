@@ -46,6 +46,7 @@ dependencies:
   cloud_firestore: ^4.1.0
   firebase_storage: ^11.0.6
   path: ^1.8.2
+  flutter_profile_picture: ^2.0.0
 
 dev_dependencies:
   flutter_test:
