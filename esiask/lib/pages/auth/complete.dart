@@ -81,7 +81,7 @@ class _CompleteState extends State<Complete> {
               InkWell(
                   borderRadius: BorderRadius.circular(300),
 
-                  //faire get image local(gallerie de photo)
+                  //get image local(gallerie de photo)
                   onTap: () {
                     imgFromGallery();
                   },
@@ -249,8 +249,7 @@ class _CompleteState extends State<Complete> {
                         yearValue, subjectValue, imageFile!);
                   }
 
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const Application()));
+                  
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,

@@ -38,7 +38,7 @@ Future<void> registerWithEmailAndPassword(String email, String password) async {
   }
 }
 
-Future<void> signOut() async {
+signOut() async {
   await FirebaseAuth.instance.signOut();
 }
 

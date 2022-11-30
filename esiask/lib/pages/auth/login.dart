@@ -1,8 +1,11 @@
+import 'package:esiask/controllers/firebase.dart';
 import 'package:esiask/models/logo.dart';
 import 'package:esiask/pages/auth/register.dart';
 import 'package:esiask/pages/auth/reset_password.dart';
 import 'package:flutter/material.dart';
 import 'package:esiask/controllers/auth_controller.dart';
+
+import '../application/application.dart';
 
 class LogIn extends StatefulWidget {
   const LogIn({super.key});
@@ -202,6 +205,54 @@ class _LogInState extends State<LogIn> {
                   ),
                 ],
               ),
+
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+
+
+                        loginGOOGLE(context);
+
+
+                       
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        fixedSize: const Size(150, 90),
+                      ),
+                      child: Image.asset(
+                        'assets/images/google_logo.png',
+                        fit: BoxFit.cover,
+                        width: 50,
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        signInWithFacebook();
+
+                        /*signInFB().whenComplete(() {
+                             Navigator.of(context).push(MaterialPageRoute(builder: (context)=>Complete()));
+                            },); */
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue[800],
+                        fixedSize: const Size(150, 90),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      child: const Icon(
+                        Icons.facebook,
+                        size: 45,
+                      ),
+                    ),
+                  ],
+                ),
             ],
           ),
         ),

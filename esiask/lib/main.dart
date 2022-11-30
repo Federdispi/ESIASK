@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:esiask/pages/application/application.dart';
 
-Future<void> main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  
   await Firebase.initializeApp();
   runApp(const MyApp());
 }
@@ -22,7 +23,8 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.white,
         backgroundColor: Colors.blue,
       ),
-      home: StreamBuilder<User?>(
+
+      home: StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {

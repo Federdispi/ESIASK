@@ -11,13 +11,13 @@ import 'package:path/path.dart';
 
 import '../pages/auth/complete.dart';
 
-final FirebaseAuth auth = FirebaseAuth.instance;
+
 CollectionReference users = FirebaseFirestore.instance.collection('Users');
 
 Future<void> userSetup(String username, String specialite, String yearvalue,
     String subject, File imgFile) async {
   //for User informations storage
-
+final FirebaseAuth auth = FirebaseAuth.instance;
   String uid = auth.currentUser!.uid.toString();
   String email = auth.currentUser!.email.toString();
 
@@ -42,8 +42,8 @@ Future<void> userSetup(String username, String specialite, String yearvalue,
   return;
 }
 
-Future<void> signupGOOGLE(BuildContext context, String username,
-    String specialite, String yearvalue, String subject, File imgFile) async {
+
+loginGOOGLE(BuildContext context) async {
   final GoogleSignIn googleSignIn = GoogleSignIn();
   final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
   if (googleSignInAccount != null) {
@@ -53,9 +53,34 @@ Future<void> signupGOOGLE(BuildContext context, String username,
         idToken: googleSignInAuthentication.idToken,
         accessToken: googleSignInAuthentication.accessToken);
 
+        // Once signed in, return the UserCredential
+    return await FirebaseAuth.instance.signInWithCredential(authCredential);
+  }}
+
+signupGOOGLE(BuildContext context, String username,
+    String specialite, String yearvalue, String subject, File imgFile) async {
+
+
+      print("1");
+
+
+  final GoogleSignIn googleSignIn = GoogleSignIn();
+  final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
+  if (googleSignInAccount != null) {
+    print("2");
+    final GoogleSignInAuthentication googleSignInAuthentication =
+        await googleSignInAccount.authentication;
+
+        print("3");
+    final AuthCredential authCredential = GoogleAuthProvider.credential(
+        idToken: googleSignInAuthentication.idToken,
+        accessToken: googleSignInAuthentication.accessToken);
+final FirebaseAuth auth = FirebaseAuth.instance;
     // Getting users credential
     UserCredential result = await auth.signInWithCredential(authCredential);
     User? user = result.user;
+
+    print("4");
 
     String? photo = "";
     String? Username_ = "";
@@ -80,7 +105,7 @@ Future<void> signupGOOGLE(BuildContext context, String username,
     res.ref.getDownloadURL();
   });
 
-
+print("5");
     if (result != null) {
       users.add({
         'uid': user?.uid,
@@ -92,8 +117,9 @@ Future<void> signupGOOGLE(BuildContext context, String username,
         'subject': subject,
         'register_type': "google"
       });
-    } // if result not null we simply call the MaterialpageRoute,
-    // for go to the HomePage screen
+    }
+
+    print("6"); 
   }
 }
 

@@ -11,7 +11,6 @@ class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-final user = FirebaseAuth.instance.currentUser!;
  
 
     return Scaffold(
@@ -31,19 +30,23 @@ ElevatedButton(
             ),
 
    
-            
+//
+
+  /*          
 Text(
   'Email${user.email!}',
   style:TextStyle(color:Colors.white,fontSize:16)
 ),
+*/
 
+/*
 ProfilePicture(
     name: '${user.displayName}',
     radius: 31,
     fontsize: 21,
-    img: '${getData(user.uid)}'
+    img: '${user.photoURL}'
 ),
-          
+     */     
 
 ],
 
