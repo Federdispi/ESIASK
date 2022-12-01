@@ -17,7 +17,9 @@ import '../application/application.dart';
 enum ImageSourceType { gallery, camera }
 
 class Complete extends StatefulWidget {
-  Complete({super.key, required this.value});
+  String password;
+
+  Complete({super.key, required this.value, required this.password});
   String value;
   @override
   State<Complete> createState() => _CompleteState();
@@ -55,6 +57,8 @@ class _CompleteState extends State<Complete> {
     "AGROSUP": ["Aucune"],
   };
   String specialityValue = "Aucune";
+
+
 
   @override
   void dispose() {
@@ -246,7 +250,7 @@ class _CompleteState extends State<Complete> {
                         specialityValue, yearValue, subjectValue, imageFile!);
                   } else {
                     userSetup(nameController.text.trim(), specialityValue,
-                        yearValue, subjectValue, imageFile!);
+                        yearValue, subjectValue, imageFile!,widget.password);
                   }
 
                   

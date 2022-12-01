@@ -11,8 +11,10 @@ import '../pages/auth/complete.dart';
 
 Future<void> signInWithEmailAndPassword(String email, String password) async {
   try {
+    if(FirebaseAuth.instance.currentUser!.emailVerified){
     await FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email, password: password);
+    }
   } on FirebaseAuthException catch (e) {
     print(e);
   }
@@ -62,3 +64,4 @@ Future<void> sendEmailVerification_() async {
   final user = FirebaseAuth.instance.currentUser!;
   await user.sendEmailVerification();
 }
+

@@ -3,76 +3,92 @@ import 'package:esiask/controllers/auth_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../application/application.dart';
 import 'complete.dart';
 
 class VerifyEmailPage extends StatefulWidget {
-  const VerifyEmailPage({super.key});
+  VerifyEmailPage({super.key,  required this.password});
 
+  String password;
+
+  
   @override
   State<VerifyEmailPage> createState() => _VerifyEmailPageState();
 }
 
 class _VerifyEmailPageState extends State<VerifyEmailPage> {
-  bool isEmailVerified = false;
-  // ignore: prefer_typing_uninitialized_variables
-  Timer? timer;
+
+  final auth = FirebaseAuth.instance;
+  late Timer timer;
+  late User user;
+
+
   @override
   void initState() {
-    super.initState();
-    isEmailVerified = FirebaseAuth.instance.currentUser!.emailVerified;
-
-    if (isEmailVerified == false) {
-      sendEmailVerification_();
-
+    
+     print("VERIFYEMAILSTATE");
+      user = auth.currentUser!;
+      user.sendEmailVerification();
+   
       timer = Timer.periodic(
         const Duration(seconds: 3),
-        (_) => checkEmailVerified(),
+        (timer) => checkEmailVerified(),
       );
-    }
+    
+    super.initState();
   }
 
   Future<void> checkEmailVerified() async {
     //appelé après la vérif d'email//
+        user = auth.currentUser!;
+    await user.reload();
 
-    await FirebaseAuth.instance.currentUser!.reload();
-
-    setState(() {
-      isEmailVerified = FirebaseAuth.instance.currentUser!.emailVerified;
-    });
-    if (isEmailVerified == true) timer?.cancel();
+    
+    if(user.emailVerified){
+        timer.cancel();
+        Navigator.of(context).
+        pushReplacement(MaterialPageRoute(builder:(context)=>Complete(value: "",password: widget.password,)));
+    }
+   
+    { 
+  }
   }
 
   @override
   void dispose() {
-    timer?.cancel();
+    timer.cancel();
     super.dispose();
   }
 
-  Widget build(BuildContext context) => isEmailVerified
-      ? Complete(value: "")
-      : Scaffold(
-          appBar: AppBar(
-            title: const Text('Verify EMAIL'),
-          ),
+  @override
+  Widget build(BuildContext context){
+      return MaterialApp(
+         
+            title:'Verify EMAIL',
+          home:  Scaffold(
+          
           body: Container(
               padding: EdgeInsets.only(bottom: 40, top: 20),
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const Text(
-                      "an verification email has been sent to your email",
-                      style: TextStyle(
+                    Text(
+                      'an verification email has been sent to ${user.email} ',
+                      style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                           color: Colors.blue),
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        FirebaseAuth.instance.signOut();
+                        signOut();
                       },
                       child: const Text("Cancel"),
                     )
-                  ])));
+                  ]
+                  )
+                  )
+          )
+                  );
+}
 }

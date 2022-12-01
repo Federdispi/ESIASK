@@ -47,6 +47,7 @@ dependencies:
   firebase_storage: ^11.0.6
   path: ^1.8.2
   flutter_profile_picture: ^2.0.0
+  basic_utils: ^5.4.2
 
 dev_dependencies:
   flutter_test:

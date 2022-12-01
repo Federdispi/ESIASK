@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:esiask/controllers/auth_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -14,8 +15,8 @@ import '../pages/auth/complete.dart';
 
 CollectionReference users = FirebaseFirestore.instance.collection('Users');
 
-Future<void> userSetup(String username, String specialite, String yearvalue,
-    String subject, File imgFile) async {
+userSetup(String username, String specialite, String yearvalue,
+    String subject, File imgFile,String password) async {
   //for User informations storage
 final FirebaseAuth auth = FirebaseAuth.instance;
   String uid = auth.currentUser!.uid.toString();
@@ -39,7 +40,10 @@ final FirebaseAuth auth = FirebaseAuth.instance;
     'email': email,
     'register_type': "address+password",
   });
-  return;
+
+  
+
+  return  signInWithEmailAndPassword(email, password);
 }
 
 
