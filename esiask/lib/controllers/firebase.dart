@@ -129,7 +129,7 @@ print("5");
 
 String? downloadURL;
 
-Future<String?> getData(String uid) async{
+getData(String uid) async{
 // Create a storage reference from our app
 final storageRef = FirebaseStorage.instance.ref();
 

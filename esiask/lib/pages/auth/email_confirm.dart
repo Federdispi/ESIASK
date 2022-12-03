@@ -37,7 +37,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
     super.initState();
   }
 
-  Future<void> checkEmailVerified() async {
+checkEmailVerified() async {
     //appelé après la vérif d'email//
         user = auth.currentUser!;
     await user.reload();

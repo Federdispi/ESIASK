@@ -9,7 +9,7 @@ import 'package:http/http.dart' as http;
 
 import '../pages/auth/complete.dart';
 
-Future<void> signInWithEmailAndPassword(String email, String password) async {
+signInWithEmailAndPassword(String email, String password) async {
   try {
     if(FirebaseAuth.instance.currentUser!.emailVerified){
     await FirebaseAuth.instance
@@ -21,7 +21,7 @@ Future<void> signInWithEmailAndPassword(String email, String password) async {
 }
 
 final fbLogin = FacebookLogin();
-Future signInFB() async {
+ signInFB() async {
   final FacebookLoginResult result = await fbLogin.logIn(["email"]);
   final String token = result.accessToken.token;
   final response = await http.get(Uri.parse(
@@ -31,7 +31,7 @@ Future signInFB() async {
   return profile;
 }
 
-Future<void> registerWithEmailAndPassword(String email, String password) async {
+registerWithEmailAndPassword(String email, String password) async {
   try {
     await FirebaseAuth.instance
         .createUserWithEmailAndPassword(email: email, password: password);
@@ -44,7 +44,7 @@ signOut() async {
   await FirebaseAuth.instance.signOut();
 }
 
-Future<void> signInWithFacebook() async {
+signInWithFacebook() async {
   // Trigger the sign-in flow
   final LoginResult loginResult = await FacebookAuth.instance.login();
 
@@ -60,7 +60,7 @@ Future<void> signInWithFacebook() async {
   }
 }
 
-Future<void> sendEmailVerification_() async {
+sendEmailVerification_() async {
   final user = FirebaseAuth.instance.currentUser!;
   await user.sendEmailVerification();
 }

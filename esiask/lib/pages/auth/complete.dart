@@ -279,7 +279,7 @@ class _CompleteState extends State<Complete> {
   }
 
   /// Get from gallery
-  Future imgFromGallery() async {
+  imgFromGallery() async {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
 
     setState(() {
