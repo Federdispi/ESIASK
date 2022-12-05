@@ -62,6 +62,11 @@ signInWithFacebook() async {
 
 sendEmailVerification_() async {
   final user = FirebaseAuth.instance.currentUser!;
+
+
+  print("hahaha" '\n');
+  print(user);
+
   await user.sendEmailVerification();
 }
 

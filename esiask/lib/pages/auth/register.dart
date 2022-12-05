@@ -8,7 +8,6 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
-
 import 'email_confirm.dart';
 
 class SignUp extends StatefulWidget {
@@ -133,7 +132,7 @@ class _SignUpState extends State<SignUp> {
                     registerWithEmailAndPassword(emailController.text.trim(),
                         passwordController.text.trim());
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => VerifyEmailPage(password:passwordController.text.trim())));
+                        builder: (context) => VerifyEmailPage()));
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
@@ -187,7 +186,7 @@ class _SignUpState extends State<SignUp> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    Complete(value: "google", password: "")));
+                                    Complete(value: "google")));
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.white,

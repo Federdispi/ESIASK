@@ -16,7 +16,7 @@ import '../pages/auth/complete.dart';
 CollectionReference users = FirebaseFirestore.instance.collection('Users');
 
 userSetup(String username, String specialite, String yearvalue,
-    String subject, File imgFile,String password) async {
+    String subject, File imgFile) async {
   //for User informations storage
 final FirebaseAuth auth = FirebaseAuth.instance;
   String uid = auth.currentUser!.uid.toString();
@@ -43,7 +43,7 @@ final FirebaseAuth auth = FirebaseAuth.instance;
 
   
 
-  return  signInWithEmailAndPassword(email, password);
+  return;
 }
 
 

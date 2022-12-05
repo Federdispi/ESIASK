@@ -17,9 +17,8 @@ import '../application/application.dart';
 enum ImageSourceType { gallery, camera }
 
 class Complete extends StatefulWidget {
-  String password;
 
-  Complete({super.key, required this.value, required this.password});
+  Complete({super.key, required this.value});
   String value;
   @override
   State<Complete> createState() => _CompleteState();
@@ -250,10 +249,8 @@ class _CompleteState extends State<Complete> {
                         specialityValue, yearValue, subjectValue, imageFile!);
                   } else {
                     userSetup(nameController.text.trim(), specialityValue,
-                        yearValue, subjectValue, imageFile!,widget.password);
+                        yearValue, subjectValue, imageFile!);
                   }
-
-                  
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
