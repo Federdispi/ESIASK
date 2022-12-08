@@ -1,3 +1,4 @@
+import 'package:esiask/controllers/auth_controller.dart';
 import 'package:flutter/material.dart';
 
 class Complete extends StatefulWidget {
@@ -31,7 +32,8 @@ class _CompleteState extends State<Complete> {
     "AGROSUP": ["Aucune"],
   };
   String specialityValue = "Aucune";
-
+  final _formkey = GlobalKey<FormState>();
+  @override
   @override
   void dispose() {
     nameController.dispose();
@@ -78,7 +80,7 @@ class _CompleteState extends State<Complete> {
               ),
               SizedBox(
                 width: 340,
-                child: TextField(
+                child: TextFormField(
                   controller: nameController,
                   textInputAction: TextInputAction.next,
                   textCapitalization: TextCapitalization.words,
@@ -205,7 +207,11 @@ class _CompleteState extends State<Complete> {
                 height: 40,
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  // addUserToDatabase(nameController.text, null, subjectValue,
+                  //     specialityValue, yearValue);
+                  signOut();
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
                   elevation: 10,
