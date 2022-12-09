@@ -18,6 +18,7 @@ class _LogInState extends State<LogIn> {
 
   bool obscurePassword = true;
   final _formkey = GlobalKey<FormState>();
+
   @override
   void dispose() {
     emailController.dispose();
@@ -131,7 +132,7 @@ class _LogInState extends State<LogIn> {
                   height: 40,
                 ),
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     if (_formkey.currentState!.validate()) {
                       signInWithEmailAndPassword(emailController.text.trim(),
                           passwordController.text.trim());
@@ -211,6 +212,69 @@ class _LogInState extends State<LogIn> {
                     ),
                     const SizedBox(
                       width: 40,
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Stack(
+                  alignment: AlignmentDirectional.center,
+                  children: [
+                    const Divider(
+                      thickness: 2,
+                      indent: 35,
+                      endIndent: 35,
+                    ),
+                    Container(
+                      color: Theme.of(context).backgroundColor,
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: const Text(
+                        'ou',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        googleLogin();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        fixedSize: const Size(150, 90),
+                      ),
+                      child: Image.asset(
+                        'assets/images/google_logo.png',
+                        fit: BoxFit.cover,
+                        width: 50,
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue[800],
+                        fixedSize: const Size(150, 90),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      child: const Icon(
+                        Icons.facebook,
+                        size: 45,
+                      ),
                     ),
                   ],
                 ),

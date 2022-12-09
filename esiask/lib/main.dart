@@ -1,7 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:esiask/const.dart';
-import 'package:esiask/pages/application/application.dart';
-import 'package:esiask/pages/auth/complete.dart';
+import 'package:esiask/pages/auth/email_confirm.dart';
 import 'package:esiask/pages/auth/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +27,7 @@ class MyApp extends StatelessWidget {
         stream: firebaseAuth.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return const Application();
+            return const VerifyEmailPage();
           } else {
             return const LogIn();
           }
