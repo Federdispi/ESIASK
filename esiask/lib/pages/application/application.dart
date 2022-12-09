@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:esiask/const.dart';
 import 'package:esiask/pages/application/feed.dart';
 import 'package:esiask/pages/application/home.dart';
 import 'package:esiask/pages/application/profile.dart';
 import 'package:esiask/pages/application/search.dart';
+import 'package:esiask/pages/auth/complete.dart';
 import 'package:flutter/material.dart';
 
 class Application extends StatefulWidget {
@@ -20,6 +23,12 @@ class _ApplicationState extends State<Application> {
   ];
 
   int currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    checkIfDocumentExists();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,5 +69,21 @@ class _ApplicationState extends State<Application> {
         ],
       ),
     );
+  }
+
+  void checkIfDocumentExists() async {
+    DocumentSnapshot documentSnapshot = await firebaseFirestore
+        .collection('Users')
+        .doc(firebaseAuth.currentUser!.uid)
+        .get();
+
+    if (!mounted) {
+      return;
+    }
+
+    if (!documentSnapshot.exists) {
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const Complete()));
+    }
   }
 }

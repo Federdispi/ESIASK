@@ -1,3 +1,5 @@
+import 'package:esiask/const.dart';
+import 'package:esiask/pages/auth/email_confirm.dart';
 import 'package:esiask/pages/auth/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -21,20 +23,16 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.white,
         backgroundColor: Colors.blue,
       ),
-<<<<<<< Updated upstream
-      home: const LogIn(),
-=======
       home: StreamBuilder<User?>(
-        stream: FirebaseAuth.instance.authStateChanges(),
+        stream: firebaseAuth.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return const Application();
+            return const VerifyEmailPage();
           } else {
             return const LogIn();
           }
         },
       ),
->>>>>>> Stashed changes
     );
   }
 }
