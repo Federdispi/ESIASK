@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:esiask/const.dart';
 import 'package:esiask/pages/application/feed.dart';
 import 'package:esiask/pages/application/home.dart';
+import 'package:esiask/pages/application/mod.dart';
 import 'package:esiask/pages/application/profile.dart';
 import 'package:esiask/pages/application/search.dart';
 import 'package:esiask/pages/auth/complete.dart';
@@ -22,12 +23,22 @@ class _ApplicationState extends State<Application> {
     const Profile(),
   ];
 
+  final pagesAdmin = <Widget>[
+    const Home(),
+    const Search(),
+    const Feed(),
+    const Profile(),
+    const Mod(),
+  ];
+
   int currentIndex = 0;
+  bool admin = false;
 
   @override
   void initState() {
     super.initState();
     checkIfDocumentExists();
+    isAdmin();
   }
 
   @override
@@ -35,7 +46,7 @@ class _ApplicationState extends State<Application> {
     return Scaffold(
       body: IndexedStack(
         index: currentIndex,
-        children: pages,
+        children: admin ? pagesAdmin : pages,
       ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Theme.of(context).backgroundColor,
@@ -66,6 +77,12 @@ class _ApplicationState extends State<Application> {
             icon: Icon(currentIndex != 3 ? Icons.person_outline : Icons.person),
             label: 'Profil',
           ),
+          if (admin)
+            BottomNavigationBarItem(
+              icon: Icon(
+                  currentIndex != 4 ? Icons.feedback_outlined : Icons.feedback),
+              label: 'Modération',
+            )
         ],
       ),
     );
@@ -85,5 +102,17 @@ class _ApplicationState extends State<Application> {
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => const Complete()));
     }
+  }
+
+  void isAdmin() async {
+    DocumentSnapshot documentSnapshot = await firebaseFirestore
+        .collection('Users')
+        .doc(firebaseAuth.currentUser!.uid)
+        .get();
+    final Map<String, dynamic> doc =
+        documentSnapshot.data() as Map<String, dynamic>;
+    setState(() {
+      admin = doc['admin'];
+    });
   }
 }
