@@ -1,4 +1,11 @@
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:esiask/const.dart';
+import 'package:esiask/controllers/auth_controller.dart';
+import 'package:esiask/main.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class Complete extends StatefulWidget {
   const Complete({super.key});
@@ -31,6 +38,10 @@ class _CompleteState extends State<Complete> {
     "AGROSUP": ["Aucune"],
   };
   String specialityValue = "Aucune";
+  final _formkey = GlobalKey<FormState>();
+
+  final ImagePicker _imagePicker = ImagePicker();
+  File? imageFile;
 
   @override
   void dispose() {
@@ -56,21 +67,25 @@ class _CompleteState extends State<Complete> {
             children: [
               InkWell(
                 borderRadius: BorderRadius.circular(300),
-                onTap: () {},
-                child: const CircleAvatar(
+                onTap: imgFromGallery,
+                child: CircleAvatar(
                   radius: 75,
                   backgroundColor: Colors.white,
-                  child: CircleAvatar(
-                    radius: 70,
-                    backgroundColor: Colors.blue,
-                    child: Center(
-                      child: Icon(
-                        Icons.person_add_alt_outlined,
-                        size: 50,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
+                  backgroundImage:
+                      imageFile == null ? null : FileImage(imageFile!),
+                  child: imageFile != null
+                      ? null
+                      : const CircleAvatar(
+                          radius: 70,
+                          backgroundColor: Colors.blue,
+                          child: Center(
+                            child: Icon(
+                              Icons.person_add_alt_outlined,
+                              size: 50,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
                 ),
               ),
               const SizedBox(
@@ -78,9 +93,9 @@ class _CompleteState extends State<Complete> {
               ),
               SizedBox(
                 width: 340,
-                child: TextField(
+                child: TextFormField(
                   controller: nameController,
-                  textInputAction: TextInputAction.next,
+                  textInputAction: TextInputAction.done,
                   textCapitalization: TextCapitalization.words,
                   decoration: const InputDecoration(
                     labelText: "Nom",
@@ -205,7 +220,23 @@ class _CompleteState extends State<Complete> {
                 height: 40,
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () async {
+                  addUserToDatabase(nameController.text, imageFile,
+                      subjectValue, specialityValue, yearValue);
+                  bool documentExists = false;
+                  do {
+                    DocumentSnapshot documentSnapshot = await firebaseFirestore
+                        .collection('Users')
+                        .doc(firebaseAuth.currentUser!.uid)
+                        .get();
+                    documentExists = documentSnapshot.exists;
+                  } while (!documentExists);
+                  if (!mounted) {
+                    return;
+                  }
+                  Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => const MyApp()));
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
                   elevation: 10,
@@ -227,5 +258,16 @@ class _CompleteState extends State<Complete> {
         ),
       ),
     );
+  }
+
+  void imgFromGallery() async {
+    final pickedFile =
+        await _imagePicker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      if (pickedFile != null) {
+        imageFile = File(pickedFile.path);
+      }
+    });
   }
 }
