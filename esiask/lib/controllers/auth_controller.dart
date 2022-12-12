@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:js';
 
 import 'package:esiask/const.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -6,22 +7,22 @@ import 'package:esiask/models/user.dart' as model;
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-Future<void> signInWithEmailAndPassword(String email, String password) async {
+Future<void> signInWithEmailAndPassword(
+    String email, String password, context) async {
   try {
     firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
   } on FirebaseAuthException catch (e) {
-    print(e);
-    // TODO
+    showSnackBar(context, e.message!);
   }
 }
 
-void registerWithEmailAndPassword(String email, String password) async {
+void registerWithEmailAndPassword(
+    String email, String password, context) async {
   try {
     await firebaseAuth.createUserWithEmailAndPassword(
         email: email, password: password);
   } on FirebaseAuthException catch (e) {
-    print(e);
-    // TODO
+    showSnackBar(context, e.message!);
   }
 }
 
@@ -69,20 +70,18 @@ void sendEmailVerification() async {
     await user.sendEmailVerification();
   } catch (e) {
     print(e);
-    // TODO
   }
 }
 
-Future<void> resetPassword(String email) async {
+Future<void> resetPassword(String email, context) async {
   try {
     await firebaseAuth.sendPasswordResetEmail(email: email);
   } on FirebaseAuthException catch (e) {
-    print(e);
-    // TODO
+    showSnackBar(context, e.message!);
   }
 }
 
-Future googleLogin() async {
+Future googleLogin(context) async {
   final googleUser = await googleSignIn.signIn();
   if (googleUser == null) return;
 
@@ -96,7 +95,6 @@ Future googleLogin() async {
   try {
     await firebaseAuth.signInWithCredential(credential);
   } on FirebaseAuthException catch (e) {
-    print(e);
-    // TODO
+    showSnackBar(context, e.message!);
   }
 }
