@@ -10,7 +10,6 @@ Future<void> signInWithEmailAndPassword(String email, String password) async {
     firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
   } on FirebaseAuthException catch (e) {
     print(e);
-    // TODO
   }
 }
 
@@ -20,7 +19,6 @@ void registerWithEmailAndPassword(String email, String password) async {
         email: email, password: password);
   } on FirebaseAuthException catch (e) {
     print(e);
-    // TODO
   }
 }
 
@@ -77,7 +75,6 @@ Future<void> resetPassword(String email) async {
     await firebaseAuth.sendPasswordResetEmail(email: email);
   } on FirebaseAuthException catch (e) {
     print(e);
-    // TODO
   }
 }
 
@@ -96,6 +93,5 @@ Future googleLogin() async {
     await firebaseAuth.signInWithCredential(credential);
   } on FirebaseAuthException catch (e) {
     print(e);
-    // TODO
   }
 }
