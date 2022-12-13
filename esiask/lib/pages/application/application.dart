@@ -7,6 +7,7 @@ import 'package:esiask/pages/application/profile.dart';
 import 'package:esiask/pages/application/search.dart';
 import 'package:esiask/pages/auth/complete.dart';
 import 'package:flutter/material.dart';
+import 'package:esiask/models/user.dart' as model;
 
 class Application extends StatefulWidget {
   const Application({super.key});
@@ -32,13 +33,12 @@ class _ApplicationState extends State<Application> {
   ];
 
   int currentIndex = 0;
-  bool admin = false;
 
   @override
   void initState() {
     super.initState();
     checkIfDocumentExists();
-    isAdmin();
+    getUser();
   }
 
   @override
@@ -46,7 +46,7 @@ class _ApplicationState extends State<Application> {
     return Scaffold(
       body: IndexedStack(
         index: currentIndex,
-        children: admin ? pagesAdmin : pages,
+        children: currentUser.admin ? pagesAdmin : pages,
       ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Theme.of(context).backgroundColor,
@@ -77,7 +77,7 @@ class _ApplicationState extends State<Application> {
             icon: Icon(currentIndex != 3 ? Icons.person_outline : Icons.person),
             label: 'Profil',
           ),
-          if (admin)
+          if (currentUser.admin)
             BottomNavigationBarItem(
               icon: Icon(
                   currentIndex != 4 ? Icons.feedback_outlined : Icons.feedback),
@@ -104,15 +104,13 @@ class _ApplicationState extends State<Application> {
     }
   }
 
-  void isAdmin() async {
+  void getUser() async {
     DocumentSnapshot documentSnapshot = await firebaseFirestore
         .collection('Users')
         .doc(firebaseAuth.currentUser!.uid)
         .get();
-    final Map<String, dynamic> doc =
-        documentSnapshot.data() as Map<String, dynamic>;
     setState(() {
-      admin = doc['admin'];
+      currentUser = model.User.fromSnap(documentSnapshot);
     });
   }
 }
