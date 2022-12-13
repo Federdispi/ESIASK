@@ -135,7 +135,7 @@ class _LogInState extends State<LogIn> {
                   onPressed: () async {
                     if (_formkey.currentState!.validate()) {
                       signInWithEmailAndPassword(emailController.text.trim(),
-                          passwordController.text.trim());
+                          passwordController.text.trim(), context);
                     }
                   },
                   style: ElevatedButton.styleFrom(
@@ -247,7 +247,7 @@ class _LogInState extends State<LogIn> {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        googleLogin();
+                        googleLogin(context);
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.white,

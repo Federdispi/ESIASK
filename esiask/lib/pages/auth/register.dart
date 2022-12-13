@@ -141,7 +141,8 @@ class _SignUpState extends State<SignUp> {
                       if (_formkey.currentState!.validate()) {
                         registerWithEmailAndPassword(
                             emailController.text.trim(),
-                            passwordController.text.trim());
+                            passwordController.text.trim(),
+                            context);
                         Navigator.of(context).pop();
                       }
                     },
@@ -193,7 +194,7 @@ class _SignUpState extends State<SignUp> {
                     children: [
                       ElevatedButton(
                         onPressed: () {
-                          googleLogin();
+                          googleLogin(context);
                           Navigator.of(context).pop();
                         },
                         style: ElevatedButton.styleFrom(

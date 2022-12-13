@@ -5,6 +5,7 @@ import 'package:esiask/const.dart';
 import 'package:esiask/controllers/auth_controller.dart';
 import 'package:esiask/main.dart';
 import 'package:flutter/material.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:image_picker/image_picker.dart';
 
 class Complete extends StatefulWidget {
@@ -62,6 +63,8 @@ class _CompleteState extends State<Complete> {
         child: Container(
           padding: const EdgeInsets.only(top: 30, bottom: 40),
           alignment: AlignmentDirectional.center,
+          child: Form(
+            key: _formkey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -95,6 +98,9 @@ class _CompleteState extends State<Complete> {
                 width: 340,
                 child: TextFormField(
                   controller: nameController,
+                  validator: MultiValidator([
+                    RequiredValidator(errorText: 'Ce champ est requis'),
+                  MinLengthValidator(3, errorText: 'Le nom doit contenir au moins 3 lettres')]),
                   textInputAction: TextInputAction.done,
                   textCapitalization: TextCapitalization.words,
                   decoration: const InputDecoration(
@@ -221,21 +227,23 @@ class _CompleteState extends State<Complete> {
               ),
               ElevatedButton(
                 onPressed: () async {
-                  addUserToDatabase(nameController.text, imageFile,
-                      subjectValue, specialityValue, yearValue);
-                  bool documentExists = false;
-                  do {
-                    DocumentSnapshot documentSnapshot = await firebaseFirestore
-                        .collection('Users')
-                        .doc(firebaseAuth.currentUser!.uid)
-                        .get();
-                    documentExists = documentSnapshot.exists;
-                  } while (!documentExists);
-                  if (!mounted) {
-                    return;
+                  if (_formkey.currentState!.validate()) {
+                    addUserToDatabase(nameController.text, imageFile,
+                        subjectValue, specialityValue, yearValue);
+                    bool documentExists = false;
+                    do {
+                      DocumentSnapshot documentSnapshot = await firebaseFirestore
+                          .collection('Users')
+                          .doc(firebaseAuth.currentUser!.uid)
+                          .get();
+                      documentExists = documentSnapshot.exists;
+                    } while (!documentExists);
+                    if (!mounted) {
+                      return;
+                    }
+                    Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context) => const MyApp()));
                   }
-                  Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => const MyApp()));
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
@@ -254,6 +262,7 @@ class _CompleteState extends State<Complete> {
                 ),
               ),
             ],
+          ),
           ),
         ),
       ),
