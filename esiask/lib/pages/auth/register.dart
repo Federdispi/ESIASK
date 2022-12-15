@@ -140,8 +140,7 @@ class _SignUpState extends State<SignUp> {
                       if (_formkey.currentState!.validate()) {
                         registerWithEmailAndPassword(
                             emailController.text.trim(),
-                            passwordController.text.trim(),
-                            context);
+                            passwordController.text.trim());
                         Navigator.of(context).pop();
                       }
                     },
@@ -193,7 +192,7 @@ class _SignUpState extends State<SignUp> {
                     children: [
                       ElevatedButton(
                         onPressed: () {
-                          googleLogin(context);
+                          googleLogin();
                           Navigator.of(context).pop();
                         },
                         style: ElevatedButton.styleFrom(
@@ -210,7 +209,13 @@ class _SignUpState extends State<SignUp> {
                         ),
                       ),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+
+
+                              facebookLogin();
+                              Navigator.of(context).pop();
+
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.blue[800],
                           fixedSize: const Size(150, 90),

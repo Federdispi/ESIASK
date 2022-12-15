@@ -59,7 +59,7 @@ class ResetPassword extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () =>
-                  resetPassword(emailController.text.trim(), context),
+                  resetPassword(emailController.text.trim()),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white,
                 elevation: 10,

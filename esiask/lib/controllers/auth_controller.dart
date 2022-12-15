@@ -4,6 +4,7 @@ import 'package:esiask/const.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:esiask/models/user.dart' as model;
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 Future<void> signInWithEmailAndPassword(String email, String password) async {
   try {
@@ -92,6 +93,23 @@ Future googleLogin() async {
   try {
     await firebaseAuth.signInWithCredential(credential);
   } on FirebaseAuthException catch (e) {
+    print(e);
+  }
+}
+
+Future facebookLogin() async{
+   // Trigger the sign-in flow
+  final LoginResult loginResult = await FacebookAuth.instance.login();
+
+  // Create a credential from the access token
+  final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken!.token);
+
+  // Once signed in, return the UserCredential
+   try {
+    await
+  FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
+   }
+   on FirebaseAuthException catch (e) {
     print(e);
   }
 }
