@@ -5,14 +5,13 @@ import 'package:esiask/const.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:esiask/models/user.dart' as model;
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 Future<void> signInWithEmailAndPassword(
     String email, String password, context) async {
   try {
     firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
   } on FirebaseAuthException catch (e) {
-    showSnackBar(context, e.message!);
+    print(e);
   }
 }
 
@@ -22,7 +21,7 @@ void registerWithEmailAndPassword(
     await firebaseAuth.createUserWithEmailAndPassword(
         email: email, password: password);
   } on FirebaseAuthException catch (e) {
-    showSnackBar(context, e.message!);
+    print(e);
   }
 }
 
@@ -77,7 +76,7 @@ Future<void> resetPassword(String email, context) async {
   try {
     await firebaseAuth.sendPasswordResetEmail(email: email);
   } on FirebaseAuthException catch (e) {
-    showSnackBar(context, e.message!);
+    print(e);
   }
 }
 
@@ -95,6 +94,6 @@ Future googleLogin(context) async {
   try {
     await firebaseAuth.signInWithCredential(credential);
   } on FirebaseAuthException catch (e) {
-    showSnackBar(context, e.message!);
+    print(e);
   }
 }

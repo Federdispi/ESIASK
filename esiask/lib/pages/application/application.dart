@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:esiask/const.dart';
+import 'package:esiask/pages/application/add.dart';
 import 'package:esiask/pages/application/feed.dart';
 import 'package:esiask/pages/application/home.dart';
 import 'package:esiask/pages/application/mod.dart';
@@ -7,6 +8,7 @@ import 'package:esiask/pages/application/profile.dart';
 import 'package:esiask/pages/application/search.dart';
 import 'package:esiask/pages/auth/complete.dart';
 import 'package:flutter/material.dart';
+import 'package:esiask/models/user.dart' as model;
 
 class Application extends StatefulWidget {
   const Application({super.key});
@@ -19,6 +21,7 @@ class _ApplicationState extends State<Application> {
   final pages = <Widget>[
     const Home(),
     const Search(),
+    const Add(),
     const Feed(),
     const Profile(),
   ];
@@ -26,19 +29,19 @@ class _ApplicationState extends State<Application> {
   final pagesAdmin = <Widget>[
     const Home(),
     const Search(),
+    const Add(),
     const Feed(),
     const Profile(),
     const Mod(),
   ];
 
   int currentIndex = 0;
-  bool admin = false;
 
   @override
   void initState() {
     super.initState();
     checkIfDocumentExists();
-    isAdmin();
+    getUser();
   }
 
   @override
@@ -46,7 +49,7 @@ class _ApplicationState extends State<Application> {
     return Scaffold(
       body: IndexedStack(
         index: currentIndex,
-        children: admin ? pagesAdmin : pages,
+        children: currentUser.admin ? pagesAdmin : pages,
       ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Theme.of(context).backgroundColor,
@@ -69,18 +72,24 @@ class _ApplicationState extends State<Application> {
             label: 'Chercher',
           ),
           BottomNavigationBarItem(
+            icon: Icon(currentIndex != 2
+                ? Icons.add_circle_outline
+                : Icons.add_circle),
+            label: 'Ajouter',
+          ),
+          BottomNavigationBarItem(
             icon: Icon(
-                currentIndex != 2 ? Icons.favorite_border : Icons.favorite),
+                currentIndex != 3 ? Icons.favorite_border : Icons.favorite),
             label: 'Suivis',
           ),
           BottomNavigationBarItem(
-            icon: Icon(currentIndex != 3 ? Icons.person_outline : Icons.person),
+            icon: Icon(currentIndex != 4 ? Icons.person_outline : Icons.person),
             label: 'Profil',
           ),
-          if (admin)
+          if (currentUser.admin)
             BottomNavigationBarItem(
               icon: Icon(
-                  currentIndex != 4 ? Icons.feedback_outlined : Icons.feedback),
+                  currentIndex != 5 ? Icons.feedback_outlined : Icons.feedback),
               label: 'Modération',
             )
         ],
@@ -104,15 +113,13 @@ class _ApplicationState extends State<Application> {
     }
   }
 
-  void isAdmin() async {
+  void getUser() async {
     DocumentSnapshot documentSnapshot = await firebaseFirestore
         .collection('Users')
         .doc(firebaseAuth.currentUser!.uid)
         .get();
-    final Map<String, dynamic> doc =
-        documentSnapshot.data() as Map<String, dynamic>;
     setState(() {
-      admin = doc['admin'];
+      currentUser = model.User.fromSnap(documentSnapshot);
     });
   }
 }
