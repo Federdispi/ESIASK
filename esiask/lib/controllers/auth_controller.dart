@@ -1,10 +1,11 @@
 import 'dart:io';
-import 'dart:js';
+//import 'dart:js';
 
 import 'package:esiask/const.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:esiask/models/user.dart' as model;
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 Future<void> signInWithEmailAndPassword(
     String email, String password, context) async {
@@ -97,3 +98,18 @@ Future googleLogin(context) async {
     print(e);
   }
 }
+
+  Future facebookLogin(context) async {
+      
+      final result = await facebookSignIn.login();
+      
+        final facebookCredential = FacebookAuthProvider.credential(result.accessToken!.token);
+
+            
+      try {
+        await firebaseAuth.signInWithCredential(facebookCredential);
+      } on FirebaseAuthException catch (e) {
+      print(e);
+    }
+  }
+

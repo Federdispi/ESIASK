@@ -263,7 +263,10 @@ class _LogInState extends State<LogIn> {
                       ),
                     ),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        facebookLogin(context);
+                        Navigator.of(context).pop();
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue[800],
                         fixedSize: const Size(150, 90),

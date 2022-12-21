@@ -1,5 +1,6 @@
 import 'package:esiask/controllers/auth_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
 class SignUp extends StatefulWidget {
@@ -12,7 +13,8 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-
+  bool _isLoggedIn = false;
+  Map _userObj = {};
   bool obscurePassword = true;
   final _formkey = GlobalKey<FormState>();
 
@@ -210,7 +212,10 @@ class _SignUpState extends State<SignUp> {
                         ),
                       ),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          facebookLogin(context);
+                          Navigator.of(context).pop();
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.blue[800],
                           fixedSize: const Size(150, 90),
