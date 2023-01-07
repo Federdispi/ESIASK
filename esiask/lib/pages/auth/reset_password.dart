@@ -35,10 +35,26 @@ class ResetPassword extends StatelessWidget {
                 ),
                 borderRadius: BorderRadius.all(Radius.circular(20)),
               ),
+<<<<<<< Updated upstream
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(
                   color: Colors.white,
                   width: 1,
+=======
+              cursorColor: Theme.of(context).primaryColor,
+            ),
+            const SizedBox(
+              height: 40,
+            ),
+            ElevatedButton(
+              onPressed: () =>
+                  resetPassword(emailController.text.trim()),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white,
+                elevation: 10,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+>>>>>>> Stashed changes
                 ),
                 borderRadius: BorderRadius.all(Radius.circular(12)),
               ),

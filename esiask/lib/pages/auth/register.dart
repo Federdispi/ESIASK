@@ -123,6 +123,7 @@ class _SignUpState extends State<SignUp> {
                     ),
                     cursorColor: Colors.white,
                   ),
+<<<<<<< Updated upstream
                 ),
                 const SizedBox(
                   height: 40,
@@ -139,6 +140,34 @@ class _SignUpState extends State<SignUp> {
                     elevation: 10,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
+=======
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      if (_formkey.currentState!.validate()) {
+                        registerWithEmailAndPassword(
+                            emailController.text.trim(),
+                            passwordController.text.trim());
+                        Navigator.of(context).pop();
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      elevation: 10,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      fixedSize: const Size(340, 55),
+                    ),
+                    child: const Text(
+                      "Créer le compte",
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue),
+>>>>>>> Stashed changes
                     ),
                     fixedSize: const Size(340, 55),
                   ),
@@ -171,6 +200,7 @@ class _SignUpState extends State<SignUp> {
                           fontSize: 16,
                         ),
                       ),
+<<<<<<< Updated upstream
                     ),
                   ],
                 ),
@@ -192,6 +222,32 @@ class _SignUpState extends State<SignUp> {
                         backgroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
+=======
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          googleLogin();
+                          Navigator.of(context).pop();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          fixedSize: const Size(150, 90),
+                        ),
+                        child: Image.asset(
+                          'assets/images/google_logo.png',
+                          fit: BoxFit.cover,
+                          width: 50,
+>>>>>>> Stashed changes
                         ),
                         fixedSize: const Size(150, 90),
                       ),

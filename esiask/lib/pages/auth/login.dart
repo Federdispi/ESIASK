@@ -119,6 +119,7 @@ class _LogInState extends State<LogIn> {
                   ),
                   cursorColor: Colors.white,
                 ),
+<<<<<<< Updated upstream
               ),
               const SizedBox(
                 height: 40,
@@ -133,6 +134,32 @@ class _LogInState extends State<LogIn> {
                   elevation: 10,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
+=======
+                const SizedBox(
+                  height: 40,
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    if (_formkey.currentState!.validate()) {
+                      signInWithEmailAndPassword(emailController.text.trim(),
+                          passwordController.text.trim());
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    elevation: 10,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    fixedSize: const Size(340, 55),
+                  ),
+                  child: const Text(
+                    "Connexion",
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue),
+>>>>>>> Stashed changes
                   ),
                   fixedSize: const Size(340, 55),
                 ),
@@ -211,12 +238,16 @@ class _LogInState extends State<LogIn> {
                   children: [
                     ElevatedButton(
                       onPressed: () {
+<<<<<<< Updated upstream
 
 
                         loginGOOGLE(context);
 
 
                        
+=======
+                        googleLogin();
+>>>>>>> Stashed changes
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.white,
